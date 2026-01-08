@@ -1,8 +1,3 @@
-////////////////////////////////////////////////////////////
-// This is the new testing infrastructure. Merge this     //
-// into the other file without altering the test methods. //
-////////////////////////////////////////////////////////////
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -64,3 +59,4 @@ public class SeleniumTest {
         driver.quit();
     }
 }
+

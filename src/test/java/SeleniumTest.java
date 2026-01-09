@@ -1,7 +1,6 @@
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.beans.Transient;
 import java.io.File;
 
 import org.junit.After;
@@ -18,14 +17,15 @@ public class SeleniumTest {
 
     @Before
     public void setUp() {
-        // Set up ChromeDriver path
-        System.setProperty("webdriver.chrome.driver", "./chromedriver.exe");
+        // REQUIRED by old extension – do not change
+        System.setProperty("webdriver.chrome.driver", "driver/chromedriver");
 
-        // Create a new ChromeDriver instance
         driver = new ChromeDriver();
+
+        // Load local HTML file via file:// URL
         File file = new File("StyledElements.html");
-        // Open the HTML file
-        driver.get(file.getAbsolutePath());
+        String path = "file://" + file.getAbsolutePath();
+        driver.get(path);
     }
 
     @Test
@@ -34,29 +34,28 @@ public class SeleniumTest {
         assertEquals("italic", p.getCssValue("font-style"));
     }
 
-
     @Test
     public void testSmallText() {
         WebElement p = driver.findElement(By.id("small"));
-        String fontSize = p.getCssValue("font-size");
-        // extract the font size of the p element:
+        String fontSize = p.getCssValue("font-size"); // e.g. "14px"
+
         fontSize = fontSize.substring(0, fontSize.length() - 2);
         int fontSizeNum = Integer.valueOf(fontSize);
-        // assert that the font size is less than 30:
+
         assertTrue(fontSizeNum < 16);
     }
 
     @Test
     public void testCenterContent() {
         WebElement p = driver.findElement(By.id("center"));
-        boolean centered = p.getCssValue("text-align").equals("center");
-        assertTrue(centered);
+        assertEquals("center", p.getCssValue("text-align"));
     }
 
     @After
     public void tearDown() {
-        // Close the browser
         driver.quit();
     }
 }
+
+
 

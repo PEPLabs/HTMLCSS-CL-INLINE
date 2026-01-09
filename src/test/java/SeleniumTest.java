@@ -23,7 +23,7 @@ public class SeleniumTest {
         driver = new ChromeDriver();
 
         // Load local HTML file via file:// URL
-        File file = new File("StyledElements.html");
+        File file = new File("src/main/StyledElements.html");
         String path = "file://" + file.getAbsolutePath();
         driver.get(path);
     }
@@ -56,6 +56,7 @@ public class SeleniumTest {
         driver.quit();
     }
 }
+
 
 
 
